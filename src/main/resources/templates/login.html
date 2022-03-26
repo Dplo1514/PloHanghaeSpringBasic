@@ -29,12 +29,13 @@
 <a href="">
     <div class="title">
         <h1>Port99</h1></div>
+
 </a>
 
 <hr style="border:1px color= silver;" width="90%">
 <div id="login-form">
     <button id="login-kakao-btn"
-            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">
+            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=5d1dd5f1a29c5a426c893504f3164e5d&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">
         카카오로 로그인하기
     </button>
     <button id="login-id-btn" onclick="location.href='/user/signup'">
@@ -48,11 +49,10 @@
         <input type="password" name="password" class="login-input-box">
 
         <button id="login-id-submit">로그인</button>
+        <h3 th:text = "${error}"></h3>
     </form>
-    <div id="login-failed" style="display:none" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>
 </div>
 <hr style="border:1px color= white;" width="90%">
-
 </body>
 
 </html>

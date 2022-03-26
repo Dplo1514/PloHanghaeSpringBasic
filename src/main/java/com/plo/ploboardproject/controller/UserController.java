@@ -1,11 +1,13 @@
 package com.plo.ploboardproject.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.plo.ploboardproject.dto.SignUpRequestDto;
 import com.plo.ploboardproject.validator.CheckEmailValidator;
 import com.plo.ploboardproject.validator.CheckPasswordUsernameValidator;
 import com.plo.ploboardproject.validator.CheckUsernameValidator;
 import com.plo.ploboardproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,7 +15,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -76,11 +80,17 @@ public class UserController {
         userService.registerUser(requestDto);
         return "redirect:/user/login";
     }
-//
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public String handlerException(Exception e){
-//        Map<String , String> map = new HashMap<>();
-//        map.put("error" , e.getMessage());
-//        return "redirect:/user/signup";
-//    }
+
+    @GetMapping ("/user/login/fail")
+    public String loginFail(Model model){
+        model.addAttribute("error" , "iD 또는 비밀번호가 유효하지 않습니다");
+        return "login";
+    }
+
+    @GetMapping("/user/kakao/callback")
+    public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
+        userService.kakaoLogin(code);
+        return "redirect:/board/main";
+    }
+
 }
