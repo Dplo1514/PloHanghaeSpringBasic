@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- ajax import -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <!-- script 파일의 경로 설정  -->
+    <script src="/static/js/script.js"></script>
+    <!-- google font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Parisienne&display=swap" rel="stylesheet">
+
+    <title>Port99</title>
+
+
+</head>
+
+
+<body>
+<a th:href="@{/board/main}">
+    <div class="title">
+        <h1>Test</h1>
+    </div>
+</a>
+
+<hr style="border:1px color= silver;" width="90%">
+
+<table class="table table-sky table-hover">
+    <thead>
+    <tr>
+        <th scope="col">작성자</th>
+        <th scope="col">게시글 명</th>
+        <th scope="col">작성 시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="li : ${list}" th:href="@{'/board/boardView?idx=' + ${li.id}}">
+            <td th:text="${li.userName}"></td>
+            <td><a th:text="${li.boardTitle}" th:href="@{'/board/boardView?idx=' + ${li.id}}"></a></td>
+            <td th:text="${li.modifiedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/board/postPage}">
+    <button type="button" class="btn btn-light main-btn">게시글 작성</button>
+
+
+</body>
+
+</html>

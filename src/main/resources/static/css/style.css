@@ -1,0 +1,295 @@
+a:link{
+    color: black;
+}
+a:visited {
+    color:black;
+}
+span:hover {
+    color: gray;
+}
+a:hover {
+    color:gray;
+    text-decoration: none;
+}
+
+
+
+table {
+    font-family: 'Gugi', cursive;
+}
+
+button {
+    font-family: 'Gugi', cursive;
+}
+
+
+body {
+    background: #2980B9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width:100%;
+    height:100vh;
+    background-repeat : no-repeat;
+    background-size : cover;
+    overflow-y: auto;
+}
+
+.title {
+    font-family: 'Parisienne', cursive;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title>h1 {
+    font-size: 100px;
+    text-decoration: underline solid black 2px;
+    margin-top: 2.5%;
+}
+
+
+.sign {
+    font-family: 'Parisienne', cursive;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    margin-top: -2%
+}
+
+.sign > a > span {
+    display: inline-block;
+    margin: 0 7% 0 7%;
+    width: 120px;
+    height: 45px;
+    font-size: 35px;
+    text-decoration: underline solid black 1px;
+}
+
+.sign> a > span:hover{
+    cursor: pointer;
+}
+
+.main-cards {
+    width: 95%;
+    margin-top: 1.5%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'Gugi', cursive;
+    text-decoration: none;
+    font:black;
+}
+.main-cards > hr {
+    margin-top:2%;
+    padding-bottom: 10px;
+}
+
+.card-body:hover {
+    cursor: pointer;
+}
+
+.table{
+    width: 80%;
+    text-align: center;
+    margin: 3% auto 3% auto;
+    color:black;
+}
+
+
+.post {
+    width: 80%;
+    height: 63%;
+    clear: both;
+    font-family: 'Gugi', cursive;
+    margin: 0 auto 0 auto;
+}
+
+.post_name_input {
+    margin: 2% 0 2% 0;
+}
+
+.login-form{
+    font-family: 'Gugi', cursive;
+    width: 45%;
+    height: 50%;
+    margin: 0 auto 0 auto;
+    border: 2px solid skyblue;
+    text-align:center;
+    border-radius:2%;
+}
+
+#login-form {
+    width: 538px;
+    height: 800px;
+    margin: 40px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /*gap: 96px;*/
+    padding: 0 0 0 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.15);
+}
+
+#login-title {
+    width: 303px;
+    height: 32px;
+    /*margin: 56px auto auto auto;*/
+    flex-grow: 0;
+    font-family: 'Gugi', cursive;
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: -0.96px;
+    text-align: left;
+    color: #212529;
+}
+
+#login-kakao-btn {
+    border-width: 0;
+    margin: 96px 0 8px;
+    width: 393px;
+    height: 62px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /*margin: 0 0 8px;*/
+    padding: 11px 12px;
+    border-radius: 5px;
+    background-color: #ffd43b;
+
+    font-family: 'Gugi', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    color: #414141;
+}
+
+#login-id-btn {
+    width: 393px;
+    height: 62px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /*margin: 8px 0 0;*/
+    padding: 11px 12px;
+    border-radius: 5px;
+    border: solid 1px #212529;
+    background-color: #ffffff;
+
+    font-family: 'Gugi', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    color: #414141;
+}
+
+.login-input-box {
+    border-width: 0;
+
+    width: 370px !important;
+    height: 52px;
+    margin: 14px 0 0;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.login-id-label {
+    /*width: 44.1px;*/
+    /*height: 16px;*/
+    width: 382px;
+    padding-left: 11px;
+    margin-top: 40px;
+    /*margin: 0 337.9px 14px 11px;*/
+    font-family: 'Gugi', cursive;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    text-align: left;
+    color: #212529;
+}
+
+#login-id-submit {
+    border-width: 0;
+    width: 393px;
+    height: 62px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 40px 0 0;
+    padding: 11px 12px;
+    border-radius: 5px;
+    background-color: #15aabf;
+
+    font-family: 'Gugi', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+#logout-text {
+    position:absolute;
+    top:48px;
+    right:48px;
+    font-size: 18px;
+    font-family: 'Gugi', cursive;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.main-btn{
+    float: right;
+    margin-right: 10%;
+}
+
+.post-btn{
+    float: right;
+    margin-top: 2%;
+}
+
+.userName{
+    font-size: 60px;
+    margin-top: 30px;
+}
+
+.post-name{
+    font-size: 40px;
+    margin-top: 30px;
+
+}
+
+.post-content{
+    font-size: 30px;
+    margin-top: 30px;
+
+}

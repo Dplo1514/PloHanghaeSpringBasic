@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- ajax import -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- google font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Parisienne&display=swap" rel="stylesheet">
+
+    <title>Port99</title>
+
+
+</head>
+
+
+<body>
+<a th:href="@{/board/main}">
+    <div class="title">
+        <h1>Test</h1>
+    </div>
+</a>
+
+
+<hr style="border:1px color= silver;" width="90%">
+<div class="post">
+    <form action="/board/post" method="POST" enctype="multipart/form-data">
+        <div class="post_name_input">
+            <label for="exampleFormControlTextarea1" class="form-label">게시글 명</label>
+            <input name="boardTitle" type="text" class="form-control" id="exampleFormControlTextarea1">
+        </div>
+
+        <div class="post_name_input">
+            <label for="exampleFormControlTextarea1" class="form-label">작성자 이름</label>
+            <input name="userName" type="text" class="form-control" id="exampleFormControlTextarea">
+        </div>
+
+        <div class="post_input">
+            <label for="exampleFormControlTextarea1" class="form-label">게시글 내용</label>
+            <textarea name="boardContents" class="form-control" id="exampleFormControlTextarea2" rows="13"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-light post-btn">게시글 작성</button>
+    </form>
+
+</div>
+
+</body>
+
+</html>
