@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,6 +23,10 @@ public class BoardWrite extends TimeStamped{
 
     @Column(nullable = false)
     private String userName;
+
+    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
 
 
     public BoardWrite(BoardWriteRequestDto requestDto){

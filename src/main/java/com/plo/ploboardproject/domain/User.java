@@ -28,11 +28,24 @@ public class User extends TimeStamped{
     @Enumerated(value = EnumType.STRING) //DB에 저장될 때 , 가져올 때는 enum값이 아닌 String으로 변환 후 저장하겠다.
     private UserRoleEnum role;
 
+    @Column(unique = true)
+    private Long kakaoId;
+
     public User(String username , String password , String email , UserRoleEnum role){
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.kakaoId = null;
+    }
+
+
+    public User(String username , String password , String email , UserRoleEnum role , Long kakaoId){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.kakaoId = kakaoId;
     }
 }
 
