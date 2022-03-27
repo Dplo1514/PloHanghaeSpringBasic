@@ -1,12 +1,15 @@
 package com.plo.ploboardproject.domain;
-
+import com.plo.ploboardproject.dto.BoardRequestDto;
+import com.plo.ploboardproject.dto.CommentRequestDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.websocket.server.ServerEndpoint;
 
+@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "comment")
@@ -15,18 +18,29 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private String user;
+
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comment; // 댓글 내용
 
-    //post_id가져오기
+    //comment는 Board와 manytoone관계를 갖게된다.
     @ManyToOne
-    @JoinColumn(name = "posts_id")
-    private BoardWrite boardWrite;
+    //@JoinColumn : FK를 가지는 엔티티가 @JoinColumn 어노테이션을 사용합니다.
+    //논리적으로 Comment가 어떤 카테고리에 속하는지를 식별해야하기 때문에 Comment가 FK를 가집니다.
+    //name="board_id" : 이것이 실제 Board 테이블에 있는 board테이블의 FK 컬럼명이 된다.
+    @JoinColumn(name = "board_id")
+    private Board board;
 
-    //작성자 이름 가져오기
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public Comment(String user , String comment){
+        this.user = user;
+        this.comment = comment;
+    }
 
+    public Comment(CommentRequestDto requestDto){
+        this.user = requestDto.getUser();
+        this.comment = requestDto.getComment();
+    }
 
 }
