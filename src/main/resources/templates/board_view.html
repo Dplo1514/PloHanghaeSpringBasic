@@ -18,7 +18,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Parisienne&display=swap" rel="stylesheet">
 
     <title>Port99</title>
+<script>
+        function user_check(){//user가 null이면 댓글창 클릭시 로그인 화면으로 돌아감
+            $.ajax({
+                type: "GET",
+                url: "/board/userCheck",
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success: function (response) {
+                    let user = response['user'];
+                    if (user == null){
+                        alert("로그인 후 댓글 입력이 가능합니다.")
+                        location.href="/";
+                    }
+                }
+            });
+        }
 
+        function user_comment_button(){
+            $.ajax({
+                type: "GET",
+                url: "/board/userCommentCheck",
+                contentType: "application/json; charset=utf-8",
+                dataType:"json",
+                success: function (response) {
+                    let user = response['user'];
+                    if (user == null){
+                        alert("로그인 후 댓글 입력이 가능합니다.")
+                        location.href="/";
+                    }
+                }
+            });
+        }
+</script>
 
 </head>
 
@@ -48,23 +80,32 @@
 <div class="comment_form">
 <form th:href="@{'/board/boardView?idx='+ ${li.id}}" method="POST" enctype="multipart/form-data">
     <div class="comment_input">
-        <label for="exampleFormControlTextarea1" class="form-label">댓글을 입력해주세요</label>
-        <input name="comment" type="text" class="form-control" id="exampleFormControlTextarea1">
+        <p style="color: red" th:text="${warning}"></p>
+        <label for="exampleFormControlTextarea1" class="comment-label">댓글을 입력해주세요
+            <p><button type="submit" class="btn btn-light post-btn comment">댓글 작성완료</button></p>
+        </label>
+        <input onclick="user_check()" name="comment" type="text" class="form-control" id="exampleFormControlTextarea1">
     </div>
-    <button type="submit" class="btn btn-light post-btn">댓글 작성완료</button>
 </form>
 <div class="commentTable">
-    <table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">작성자</th>
+            <th scope="col">댓글 내용</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
         <tbody>
-        <tr th:each="list : ${comment}">
-            <td th:text="${list.user}"></td>
+        <tr id = "commentTr" th:each="list : ${comment}">
+            <td id = "commentuser" th:text="${list.user}"></td>
             <td th:text="${list.comment}"></td>
+            <td id="commentButton"><button>수정하기</button><button>삭제하기</button></td>
         </tr>
         </tbody>
     </table>
 </div>
 </div>
-
 
 </body>
 

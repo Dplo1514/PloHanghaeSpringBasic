@@ -4,6 +4,7 @@ import com.plo.ploboardproject.dto.CommentRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.websocket.server.ServerEndpoint;
 
 

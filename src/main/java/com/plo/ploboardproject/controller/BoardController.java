@@ -11,9 +11,12 @@ import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Controller
@@ -60,16 +63,50 @@ public class BoardController {
 
 
     @PostMapping("/boardView")
-    public String commentPost(@RequestParam(value = "idx" , defaultValue = "0") long idx , @RequestParam(name = "comment") String comment ,Principal principal , Model model) {
-        String name = principal.getName();
+    public String commentPost(@RequestParam(value = "idx" , defaultValue = "0") long idx , @RequestParam(name = "comment") String comment , Principal principal, RedirectAttributes redirectAttributes) {
         String comments = comment;
-        System.out.println(name);
-        System.out.println(comments);
-        System.out.println(idx);
-        boardService.CommentSave(name , comments , idx);
+        try {
+            String name = principal.getName();
+            boardService.CommentSave(name, comments, idx);
+        }   catch (NullPointerException e) {
+            String warning = "로그인 후 이용 가능한 기능입니다";
+            redirectAttributes.addFlashAttribute("warning", warning);
+            return "redirect:/board/boardView?idx=" + idx;
+        } catch (IllegalArgumentException e){
+            String warning = "댓글 내용을 입력해주세요";
+            redirectAttributes.addFlashAttribute("warning", warning);
+            return "redirect:/board/boardView?idx=" + idx;
+        }
         return "redirect:/board/boardView?idx=" + idx;
     }
+
+    @ResponseBody
+    @RequestMapping("/userCheck")
+    public Map<String , String> userCheck (Principal principal){
+        Map<String , String> result = new HashMap<String , String>();
+        try {
+            String userCheck = principal.getName();
+            result.put("user" , userCheck);
+        }catch (NullPointerException e){
+            result.put("user" , null);
+            return result;
+        }
+        System.out.println(result);
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userCommentCheck")
+    public Map<String , String> userCommentCheck(@RequestParam(value = "idx" , defaultValue = "0") long id , Principal principal , Model model){
+        //comment도 리턴해주고 , user도 리턴해줘야한다.
+        List<Comment> getComment = commentRepository.findByBoard_idOrderByModifiedAtDesc(id);
+        Map<String , String> result = new HashMap<String , String>();
+
+        System.out.println(result);
+        return result;
+    }
 }
+
 
 
 
