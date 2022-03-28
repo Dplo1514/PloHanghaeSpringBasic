@@ -1,19 +1,19 @@
 package com.plo.ploboardproject.domain;
 import com.plo.ploboardproject.dto.BoardRequestDto;
 import com.plo.ploboardproject.dto.CommentRequestDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.websocket.server.ServerEndpoint;
 
+
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "comment")
-public class Comment {
+public class Comment extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +42,4 @@ public class Comment {
         this.user = requestDto.getUser();
         this.comment = requestDto.getComment();
     }
-
 }

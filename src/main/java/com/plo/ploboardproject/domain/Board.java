@@ -1,6 +1,7 @@
 package com.plo.ploboardproject.domain;
 
 import com.plo.ploboardproject.dto.BoardRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

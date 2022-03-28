@@ -38,32 +38,33 @@
     </div>
 
     <div class="post-name">
-    <a>게시글 이름 : <a><a th:text="${li.boardTitle}"></a></a>
+        <a>게시글 이름 : <a><a th:text="${li.boardTitle}"></a></a>
     </div>
 
     <div class="post-content">
         <a>게시글 내용 :<a th:text="${li.boardContents}"></a>
     </div>
 </div>
+<div class="comment_form">
+<form th:href="@{'/board/boardView?idx='+ ${li.id}}" method="POST" enctype="multipart/form-data">
+    <div class="comment_input">
+        <label for="exampleFormControlTextarea1" class="form-label">댓글을 입력해주세요</label>
+        <input name="comment" type="text" class="form-control" id="exampleFormControlTextarea1">
+    </div>
+    <button type="submit" class="btn btn-light post-btn">댓글 작성완료</button>
+</form>
+<div class="commentTable">
+    <table>
+        <tbody>
+        <tr th:each="list : ${li.comments}">
+            <td th:text="${list.user}"></td>
+            <td th:text="${list.comment}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
 
-    <form action="/comment/post" method="POST" enctype="multipart/form-data">
-        <div class="comment_input">
-            <label for="exampleFormControlTextarea1" class="form-label">댓글을 입력해주세요</label>
-            <input name="boardTitle" type="text" class="form-control" id="exampleFormControlTextarea1">
-        </div>
-
-        <button type="submit" class="btn btn-light post-btn">댓글 작성완료</button>
-    </form>
-
-<!--        <table>-->
-<!--            <tbody>-->
-<!--            <tr th:each="li : ${list}" th:href="@{'/board/boardView?idx=' + ${li.id}}">-->
-<!--                <td th:text="${li.userName}"></td>-->
-<!--                <td><a th:text="${li.boardTitle}" th:href="@{'/board/boardView?idx=' + ${li.id}}"></a></td>-->
-<!--                <td th:text="${li.modifiedAt}"></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
 
 </body>
 

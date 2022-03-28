@@ -42,9 +42,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="li : ${list}" th:href="@{'/board/boardView?idx=' + ${li.id}}">
+    <tr th:each="li : ${list}" th:href="@{'/board/boardView?idx='+ ${li.id}}">
             <td th:text="${li.userName}"></td>
-            <td><a th:text="${li.boardTitle}" th:href="@{'/board/boardView?idx=' + ${li.id}}"></a></td>
+            <td><a th:text="${li.boardTitle}" th:href="@{'/board/boardView?idx='+${li.id}}"></a></td>
             <td th:text="${li.modifiedAt}"></td>
     </tr>
     </tbody>
