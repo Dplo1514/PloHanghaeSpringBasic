@@ -33,13 +33,15 @@ public class Comment extends TimeStamped{
     @JoinColumn(name = "board_id")
     private Board board;
 
-    public Comment(String user , String comment){
+    public Comment(String user , String comment , Board board){
         this.user = user;
         this.comment = comment;
+        this.board = board;
     }
 
     public Comment(CommentRequestDto requestDto){
         this.user = requestDto.getUser();
         this.comment = requestDto.getComment();
+        this.board = requestDto.getBoard();
     }
 }

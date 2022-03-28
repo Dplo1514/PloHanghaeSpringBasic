@@ -56,7 +56,7 @@
 <div class="commentTable">
     <table>
         <tbody>
-        <tr th:each="list : ${li.comments}">
+        <tr th:each="list : ${comment}">
             <td th:text="${list.user}"></td>
             <td th:text="${list.comment}"></td>
         </tr>

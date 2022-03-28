@@ -18,6 +18,7 @@ public class CommentRequestDto {
     private Board board;
 
 
+
     public Comment toEntity() {
         Comment comments = Comment.builder()
                 .board(board)
