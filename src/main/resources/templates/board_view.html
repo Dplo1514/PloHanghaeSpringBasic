@@ -35,26 +35,38 @@
             });
         }
 
-        // $(document).ready(function (){
-        //     hideButton();
-        // })
+        function commentUpdate(){
+            let commet = $("#commentUp").val();
+            $.ajax({
+                type: "PUT",
+                url: `/api/memos/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지 변경에 성공하였습니다.');
+                    window.location.reload();
+                }
+            });
 
-        // function hideButton() {
-        //     let test = $("#test").hide()
-        //     let del = $("#delete_comment").show()
-        //     let update = $("#update_comment").show()
-        //     let comments = $("#comment").show()
-        //     let save = $("#save_comment").hide()
-        // }
-
-        function updateButton() {
-            let idx = $("#id").innerText();
-            let test = $("#id") + $("#commentInput").show()
-            let del = $("#id") + $("#delete_comment").hide()
-            let update = $("#id") + $("#update_comment").hide()
-            let comments = $("#id") + $("#comment").hide()
-            let save = $("#id") +  $("#save_comment").show()
         }
+
+        $(document).on("click", ".updateBtn", (function () {
+            var thisbtn = $(this);
+            var thisTr = thisbtn.parent().parent(); //updatebtn의 부모는 td 할머니는 tr이다.
+            var idx = thisTr.find('td:eq(0)').text();
+            
+            let del = "#" + idx + "delete_comment";
+            let up = "#" + idx + "update_comment";
+            let comment = "#" + idx + "comment";
+            let save = "#" + idx + "save_comment";
+            let commentInput = "#" + idx + "commentInput";
+
+            $(del).hide();
+            $(up).hide();
+            $(comment).hide();
+            $(save).show();
+            $(commentInput).show();
+        }))
 
     </script>
 
@@ -106,18 +118,20 @@
             </tr>
             </thead>
             <tbody>
-                <tr id="commentTr" th:each="list : ${comment}">
-                    <td id = "id" th:text="${listStat.index}" style="display: none"></td>
-                    <td th:id="${listStat.index} + 'commentuser'" th:text="${list.user}"></td>
-                    <td th:id="${listStat.index} + 'comment'" th:text="${list.comment}"></td>
-                    <td th:id = "${listStat.index} + 'commentInput'" style="display: none" ><input name="comment" type="text"></td>
+            <tr id="commentTr" th:each="list : ${comment}">
+                <td id="id" th:text="${listStat.index}" style="display: none"></td>
+                <td th:id="${listStat.index} + 'commentuser'" th:text="${list.user}"></td>
+                <td th:id="${listStat.index} + 'comment'" th:text="${list.comment}"></td>
 
-                    <td th:if="${user} == ${list.user}" id="commentButton">
-                        <button th:id="${listStat.index} + 'update_comment'" th:onclick="updateButton(${listStat.index})"> 수정하기</button>
-                        <button th:id="${listStat.index} + 'save_comment'" style="display: none">저장하기</button>
-                        <button th:id="${listStat.index} + 'delete_comment'">삭제하기</button>
-                    </td>
-                </tr>
+                <td th:id="${listStat.index} + 'commentInput'" style="display: none"><input th:value="${list.comment}" id="commentUp" type="text"></td>
+
+                <td th:if="${user} == ${list.user}" id="commentButton">
+                    <button th:id="${listStat.index} + 'update_comment'" class="updateBtn"> 수정하기</button>
+                    <button th:id="${listStat.index} + 'save_comment'" style="display: none" onclick="commentUpdate()">저장하기 </button>
+
+                    <button th:id="${listStat.index} + 'delete_comment'">삭제하기</button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
