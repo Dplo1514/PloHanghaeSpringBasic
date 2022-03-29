@@ -5,6 +5,9 @@ import com.plo.ploboardproject.domain.Comment;
 import com.plo.ploboardproject.dto.BoardRequestDto;
 import com.plo.ploboardproject.dto.CommentRequestDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -55,4 +58,15 @@ public class BoardService {
         Comment commentSave = requestDto.toEntity();
         commentRepository.save(commentSave);
     }
+
+    /* UPDATE */
+    @Transactional
+    public void update(Long id, String comments) {
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
+
+        comment.update(comments);
+    }
+
+
+
 }

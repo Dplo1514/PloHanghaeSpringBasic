@@ -1,4 +1,5 @@
 package com.plo.ploboardproject.domain;
+
 import com.plo.ploboardproject.dto.BoardRequestDto;
 import com.plo.ploboardproject.dto.CommentRequestDto;
 import lombok.*;
@@ -14,7 +15,7 @@ import javax.websocket.server.ServerEndpoint;
 @Getter
 @Entity
 @Table(name = "comment")
-public class Comment extends TimeStamped{
+public class Comment extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,15 +35,20 @@ public class Comment extends TimeStamped{
     @JoinColumn(name = "board_id")
     private Board board;
 
-    public Comment(String user , String comment , Board board){
+    public Comment(String user, String comment, Board board) {
         this.user = user;
         this.comment = comment;
         this.board = board;
     }
 
-    public Comment(CommentRequestDto requestDto){
+    public Comment(CommentRequestDto requestDto) {
         this.user = requestDto.getUser();
         this.comment = requestDto.getComment();
         this.board = requestDto.getBoard();
     }
+
+    public void update(String comment) {
+        this.comment = comment;
+    }
+
 }

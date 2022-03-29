@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Controller
@@ -116,6 +113,17 @@ public class BoardController {
         }
         System.out.println(result);
         return result;
+    }
+
+    @PostMapping("/commentUpdate/{idx}")
+    public String commentUpdate(@PathVariable long idx ,
+                                @RequestBody HashMap<String, Object> map) {
+        String comment = (String) map.get("commentUpdate");
+        String commentId = (String) map.get("commentId");
+        long id = Long.parseLong(commentId);
+        boardService.update(id , comment);
+
+        return "redirect:/board/boardView?idx=" + idx;
     }
 
 }

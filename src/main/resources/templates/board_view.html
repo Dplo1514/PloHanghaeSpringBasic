@@ -36,10 +36,14 @@
         }
 
         function commentUpdate(){
-            let commet = $("#commentUp").val();
+            let comment = $("#commentUp").val();
+            let commentId = $("#commentid").text()
+            let idx = $("#idx").text()
+
+            let data = {"commentUpdate" : comment , "commentId" : commentId}
             $.ajax({
-                type: "PUT",
-                url: `/api/memos/${id}`,
+                type: "POST",
+                url: `/board/commentUpdate/${idx}`,
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (response) {
@@ -54,7 +58,7 @@
             var thisbtn = $(this);
             var thisTr = thisbtn.parent().parent(); //updatebtn의 부모는 td 할머니는 tr이다.
             var idx = thisTr.find('td:eq(0)').text();
-            
+
             let del = "#" + idx + "delete_comment";
             let up = "#" + idx + "update_comment";
             let comment = "#" + idx + "comment";
@@ -84,6 +88,7 @@
 <hr style="border:1px color= silver;" width="90%">
 <div class="post">
     <div class="userName">
+        <a id = "idx" th:text="${li.id}" style="display: none"></a>
         <a>작성자 : <a th:text="${li.userName}"></a>
     </div>
 
@@ -120,9 +125,9 @@
             <tbody>
             <tr id="commentTr" th:each="list : ${comment}">
                 <td id="id" th:text="${listStat.index}" style="display: none"></td>
+                <td id="commentid" th:text="${list.id}" style="display: none"></td>
                 <td th:id="${listStat.index} + 'commentuser'" th:text="${list.user}"></td>
                 <td th:id="${listStat.index} + 'comment'" th:text="${list.comment}"></td>
-
                 <td th:id="${listStat.index} + 'commentInput'" style="display: none"><input th:value="${list.comment}" id="commentUp" type="text"></td>
 
                 <td th:if="${user} == ${list.user}" id="commentButton">
