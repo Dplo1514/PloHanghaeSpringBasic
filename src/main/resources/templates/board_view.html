@@ -18,39 +18,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Parisienne&display=swap" rel="stylesheet">
 
     <title>Port99</title>
-<script>
-        function user_check(){//user가 null이면 댓글창 클릭시 로그인 화면으로 돌아감
+    <script>
+        function user_check() {//user가 null이면 댓글창 클릭시 로그인 화면으로 돌아감
             $.ajax({
                 type: "GET",
                 url: "/board/userCheck",
                 contentType: "application/json; charset=utf-8",
-                dataType:"json",
+                dataType: "json",
                 success: function (response) {
                     let user = response['user'];
-                    if (user == null){
+                    if (user == null) {
                         alert("로그인 후 댓글 입력이 가능합니다.")
-                        location.href="/";
+                        location.href = "/";
                     }
                 }
             });
         }
 
-        function user_comment_button(){
-            $.ajax({
-                type: "GET",
-                url: "/board/userCommentCheck",
-                contentType: "application/json; charset=utf-8",
-                dataType:"json",
-                success: function (response) {
-                    let user = response['user'];
-                    if (user == null){
-                        alert("로그인 후 댓글 입력이 가능합니다.")
-                        location.href="/";
-                    }
-                }
-            });
+        // $(document).ready(function (){
+        //     hideButton();
+        // })
+
+        // function hideButton() {
+        //     let test = $("#test").hide()
+        //     let del = $("#delete_comment").show()
+        //     let update = $("#update_comment").show()
+        //     let comments = $("#comment").show()
+        //     let save = $("#save_comment").hide()
+        // }
+
+        function updateButton() {
+            let idx = $("#id").innerText();
+            let test = $("#id") + $("#commentInput").show()
+            let del = $("#id") + $("#delete_comment").hide()
+            let update = $("#id") + $("#update_comment").hide()
+            let comments = $("#id") + $("#comment").hide()
+            let save = $("#id") +  $("#save_comment").show()
         }
-</script>
+
+    </script>
 
 </head>
 
@@ -78,33 +84,43 @@
     </div>
 </div>
 <div class="comment_form">
-<form th:href="@{'/board/boardView?idx='+ ${li.id}}" method="POST" enctype="multipart/form-data">
-    <div class="comment_input">
-        <p style="color: red" th:text="${warning}"></p>
-        <label for="exampleFormControlTextarea1" class="comment-label">댓글을 입력해주세요
-            <p><button type="submit" class="btn btn-light post-btn comment">댓글 작성완료</button></p>
-        </label>
-        <input onclick="user_check()" name="comment" type="text" class="form-control" id="exampleFormControlTextarea1">
+    <form th:href="@{'/board/boardView?idx='+ ${li.id}}" method="POST" enctype="multipart/form-data">
+        <div class="comment_input">
+            <p style="color: red" th:text="${warning}"></p>
+            <label for="exampleFormControlTextarea1" class="comment-label">댓글을 입력해주세요
+                <p>
+                    <button type="submit" class="btn btn-light post-btn comment">댓글 작성완료</button>
+                </p>
+            </label>
+            <input onclick="user_check()" name="comment" type="text" class="form-control"
+                   id="exampleFormControlTextarea1">
+        </div>
+    </form>
+    <div class="commentTable">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">작성자</th>
+                <th scope="col">댓글 내용</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr id="commentTr" th:each="list : ${comment}">
+                    <td id = "id" th:text="${listStat.index}" style="display: none"></td>
+                    <td th:id="${listStat.index} + 'commentuser'" th:text="${list.user}"></td>
+                    <td th:id="${listStat.index} + 'comment'" th:text="${list.comment}"></td>
+                    <td th:id = "${listStat.index} + 'commentInput'" style="display: none" ><input name="comment" type="text"></td>
+
+                    <td th:if="${user} == ${list.user}" id="commentButton">
+                        <button th:id="${listStat.index} + 'update_comment'" th:onclick="updateButton(${listStat.index})"> 수정하기</button>
+                        <button th:id="${listStat.index} + 'save_comment'" style="display: none">저장하기</button>
+                        <button th:id="${listStat.index} + 'delete_comment'">삭제하기</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</form>
-<div class="commentTable">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">작성자</th>
-            <th scope="col">댓글 내용</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr id = "commentTr" th:each="list : ${comment}">
-            <td id = "commentuser" th:text="${list.user}"></td>
-            <td th:text="${list.comment}"></td>
-            <td id="commentButton"><button>수정하기</button><button>삭제하기</button></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 </div>
 
 </body>

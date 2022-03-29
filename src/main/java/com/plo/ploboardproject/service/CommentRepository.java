@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment , Long> {
     List<Comment> findByBoard_idOrderByModifiedAtDesc(@Param(value = "boardId") long boardId);
+    List<Comment> findByUser(long userindex);
 }

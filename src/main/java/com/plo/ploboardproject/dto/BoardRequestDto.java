@@ -1,25 +1,28 @@
 package com.plo.ploboardproject.dto;
 
 import com.plo.ploboardproject.domain.Board;
-import com.plo.ploboardproject.domain.Comment;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
 
-@Getter
+@Configuration
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardRequestDto {
-    private final String boardTitle;
-    private final String boardContents;
-    private final String userName;
-    private final List<Comment> comment;
-    private final Board board;
+    private String boardTitle;
+    private String boardContents;
+    private String userName;
 
-    public BoardRequestDto(String boardTitle, String boardContents, String userName, List<Comment> comment, Board board) {
-        this.boardTitle = boardTitle;
-        this.boardContents = boardContents;
-        this.userName = userName;
-        this.board = board;
-        this.comment = comment;
+
+    public Board toEntity() {
+        Board boards = Board.builder()
+                .boardTitle(boardTitle)
+                .boardContents(boardContents)
+                .userName(userName)
+                .build();
+        return boards;
     }
 }
 

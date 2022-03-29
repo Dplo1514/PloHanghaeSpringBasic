@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,24 +41,46 @@ public class BoardController {
     }
 
     @GetMapping("/postPage")
-    public String boardWrite(){
+    public String boardWrite(Principal principal){
+        try {
+            principal.getName();
+        }catch (NullPointerException e){
+            return "redirect:/";
+        }
         return "board_write";
     }
 
 
     @PostMapping("/post")
-    public String boardWrite(BoardRequestDto requestDto){
-        Board board = new Board(requestDto);
-        boardRepository.save(board);
+    public String boardWrite(@RequestParam(name = "title") String title,
+                             @RequestParam(name = "contents") String contents ,
+                             Principal principal,Model model){
+        String name = principal.getName();
+        String titles = title;
+        String content = contents;
+        try {
+            boardService.BoardSave( name ,titles , content);
+        } catch (IllegalArgumentException e){
+            String warning = "게시글 내용 및 제목을 입력해주세요";
+            model.addAttribute("warning", warning);
+            return "board_write";
+        }
         return "redirect:/board/main";
     }
 
     @GetMapping("/boardView")
-    public String boardView(@RequestParam(value = "idx" , defaultValue = "0") long id ,Model model) {
+    public String boardView(@RequestParam(value = "idx" , defaultValue = "0") long id ,Model model, Principal principal) {
         Board getBoard = boardRepository.getById(id);
         List<Comment> getComment = commentRepository.findByBoard_idOrderByModifiedAtDesc(id);
-        model.addAttribute("li", getBoard);
-        model.addAttribute("comment", getComment);
+        try {
+            String user = principal.getName();
+            model.addAttribute("user" , user);
+            model.addAttribute("li", getBoard);
+            model.addAttribute("comment", getComment);
+        }catch (NullPointerException e){
+            model.addAttribute("li", getBoard);
+            model.addAttribute("comment", getComment);
+        }
         return "board_view";
     }
 
@@ -95,16 +118,6 @@ public class BoardController {
         return result;
     }
 
-    @ResponseBody
-    @RequestMapping("/userCommentCheck")
-    public Map<String , String> userCommentCheck(@RequestParam(value = "idx" , defaultValue = "0") long id , Principal principal , Model model){
-        //comment도 리턴해주고 , user도 리턴해줘야한다.
-        List<Comment> getComment = commentRepository.findByBoard_idOrderByModifiedAtDesc(id);
-        Map<String , String> result = new HashMap<String , String>();
-
-        System.out.println(result);
-        return result;
-    }
 }
 
 

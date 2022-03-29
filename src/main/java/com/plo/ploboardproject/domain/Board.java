@@ -1,6 +1,7 @@
 package com.plo.ploboardproject.domain;
 
 import com.plo.ploboardproject.dto.BoardRequestDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -25,14 +28,6 @@ public class Board extends TimeStamped{
 
     @Column(nullable = false)
     private String userName;
-
-//    1) @OneToMany : board의 입장에서 comment를 여러개 가지기 때문에 One - Many 관계이다.
-//     mappedBy : comment가 board와 어떤 관계를 가지고 있는지를 표시하는 속성이다.
-//     commnet는 @JoinColumn을 사용해서 board와의 관계를 표시하지만,
-//     board는 mappedBy를 이용해서 comment와의 관계를 표시한다.
-//     mappedBy에 들어가는 것은 Board에서의 comments 객체 변수이다.
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Comment> comments;
 
 
     public Board(BoardRequestDto requestDto){

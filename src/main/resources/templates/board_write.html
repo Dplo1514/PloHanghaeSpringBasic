@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 
 <head>
     <!-- Required meta tags -->
@@ -34,24 +34,18 @@
 <hr style="border:1px color= silver;" width="90%">
 <div class="post">
     <form action="/board/post" method="POST" enctype="multipart/form-data">
+        <p th:text = "${warning}"></p>
         <div class="post_name_input">
             <label for="exampleFormControlTextarea1" class="form-label">게시글 명</label>
-            <input name="boardTitle" type="text" class="form-control" id="exampleFormControlTextarea1">
-        </div>
-
-        <div class="post_name_input">
-            <label for="exampleFormControlTextarea1" class="form-label">작성자 이름</label>
-            <input name="userName" type="text" class="form-control" id="exampleFormControlTextarea">
+            <input name="title" type="text" class="form-control" id="exampleFormControlTextarea1">
         </div>
 
         <div class="post_input">
             <label for="exampleFormControlTextarea1" class="form-label">게시글 내용</label>
-            <textarea name="boardContents" class="form-control" id="exampleFormControlTextarea2" rows="13"></textarea>
+            <textarea name="contents" class="form-control" id="exampleFormControlTextarea2" rows="13"></textarea>
         </div>
 
         <button type="submit" class="btn btn-light post-btn">게시글 작성</button>
-
-
 
     </form>
 
